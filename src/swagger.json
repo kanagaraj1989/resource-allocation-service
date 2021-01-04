@@ -1,0 +1,162 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API documentation for social app - Google.",
+    "version": "1.0.0",
+    "title": "Social app - Google",
+    "contact": {
+      "email": "kanagaraj.20jan@gmail.com"
+    }
+  },
+  "host": "",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/social-app/google/authToken": {
+      "post": {
+        "tags": [
+          "Get Authorization token"
+        ],
+        "summary": "Get Authorization token by passing name, email, google-accessToken",
+        "description": "Get Authorization token by passing name, email, google-accessToken",
+        "operationId": "GetAuthToken",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "accessToken get from google OAuth2 response",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuthTokenRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AuthTokenResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/social-app/google/people/list": {
+      "get": {
+        "tags": [
+          "Get People List"
+        ],
+        "summary": "Get list of contact associated with google login account",
+        "description": "Get list of contact associated with google login account",
+        "operationId": "GetPeopleList",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "pageSize",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/PeopleResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AuthTokenRequest": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "Person": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phoneNo": {
+          "type": "string"
+        }
+      }
+    },
+    "AuthTokenResponse": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        }
+      }
+    },
+    "PeopleResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Person"
+          },
+          "description": "List of person details"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
